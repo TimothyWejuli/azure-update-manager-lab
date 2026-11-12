@@ -1,0 +1,18 @@
+terraform.tfvars
+*.tfvars
+!terraform.tfvars.example
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfplan
+crash.log
+aum-compliance-report.json
+# Saved plan files contain sensitive values in plain text
+tfplan
+terraform-AUMLAB
+
+# Local run logs can contain secrets and IDs
+*-log.txt
+*.log
