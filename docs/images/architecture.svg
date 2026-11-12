@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="715" viewBox="0 0 1200 715" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a5568"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="715" fill="#ffffff"/>
+  <text x="600" y="38" text-anchor="middle" font-size="24" font-weight="600" fill="#1a202c">Azure Update Manager Lab: Architecture</text>
+  <text x="600" y="62" text-anchor="middle" font-size="14" fill="#4a5568">Terraform-deployed Windows Server domain with policy-based assessment and scheduled patching</text>
+
+  <!-- Engineer / Terraform -->
+  <rect x="30" y="110" width="200" height="120" rx="10" fill="#f7fafc" stroke="#a0aec0"/>
+  <text x="130" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1a202c">Engineer workstation</text>
+  <text x="130" y="165" text-anchor="middle" font-size="13" fill="#2d3748">Terraform CLI</text>
+  <text x="130" y="185" text-anchor="middle" font-size="13" fill="#2d3748">Azure CLI / Az PowerShell</text>
+  <text x="130" y="205" text-anchor="middle" font-size="13" fill="#2d3748">RDP from allowed /32 only</text>
+
+  <rect x="30" y="270" width="200" height="100" rx="10" fill="#f7fafc" stroke="#a0aec0"/>
+  <text x="130" y="300" text-anchor="middle" font-size="16" font-weight="600" fill="#1a202c">Remote state</text>
+  <text x="130" y="324" text-anchor="middle" font-size="13" fill="#2d3748">rg-tfstate / Blob container</text>
+  <text x="130" y="344" text-anchor="middle" font-size="13" fill="#2d3748">Entra ID auth</text>
+  <line x1="130" y1="230" x2="130" y2="268" stroke="#4a5568" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="30" y="420" width="200" height="130" rx="10" fill="#fffaf0" stroke="#dd6b20"/>
+  <text x="130" y="450" text-anchor="middle" font-size="16" font-weight="600" fill="#1a202c">validate-lab.ps1</text>
+  <text x="130" y="474" text-anchor="middle" font-size="13" fill="#2d3748">Reads assessment results</text>
+  <text x="130" y="494" text-anchor="middle" font-size="13" fill="#2d3748">PASS / FAIL per VM</text>
+  <text x="130" y="514" text-anchor="middle" font-size="13" fill="#2d3748">Exports JSON report</text>
+  <text x="130" y="534" text-anchor="middle" font-size="12" fill="#718096">aum-compliance-report.json</text>
+
+  <!-- Resource group -->
+  <rect x="270" y="90" width="560" height="580" rx="12" fill="#ebf8ff" stroke="#3182ce" stroke-width="2"/>
+  <text x="290" y="118" font-size="16" font-weight="600" fill="#2b6cb0">Resource group: rg-aumlab (East US)</text>
+  <line x1="232" y1="170" x2="268" y2="170" stroke="#4a5568" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- VNet -->
+  <rect x="295" y="135" width="510" height="345" rx="10" fill="#ffffff" stroke="#63b3ed"/>
+  <text x="315" y="160" font-size="14" font-weight="600" fill="#2c5282">vnet-aumlab 10.0.0.0/16</text>
+  <rect x="315" y="175" width="470" height="290" rx="8" fill="#f0fff4" stroke="#68d391" stroke-dasharray="6 4"/>
+  <text x="335" y="198" font-size="13" font-weight="600" fill="#276749">snet-aumlab 10.0.1.0/24</text>
+  <text x="765" y="198" text-anchor="end" font-size="12" fill="#276749">nsg-aumlab: TCP 3389 from your IP only</text>
+
+  <!-- DC -->
+  <rect x="335" y="215" width="430" height="90" rx="8" fill="#ffffff" stroke="#2f855a"/>
+  <text x="550" y="243" text-anchor="middle" font-size="15" font-weight="600" fill="#1a202c">DC01 · 10.0.1.4</text>
+  <text x="550" y="265" text-anchor="middle" font-size="13" fill="#2d3748">Windows Server 2022 · AD DS + DNS (aumlab.local)</text>
+  <text x="550" y="285" text-anchor="middle" font-size="12" fill="#718096">Promoted by CustomScriptExtension</text>
+
+  <!-- WS -->
+  <rect x="335" y="335" width="205" height="110" rx="8" fill="#ffffff" stroke="#2f855a"/>
+  <text x="437" y="362" text-anchor="middle" font-size="15" font-weight="600" fill="#1a202c">WS01 · 10.0.1.5</text>
+  <text x="437" y="384" text-anchor="middle" font-size="12" fill="#2d3748">Windows Server 2022</text>
+  <text x="437" y="404" text-anchor="middle" font-size="12" fill="#2d3748">Domain-joined</text>
+  <rect x="560" y="335" width="205" height="110" rx="8" fill="#ffffff" stroke="#2f855a"/>
+  <text x="662" y="362" text-anchor="middle" font-size="15" font-weight="600" fill="#1a202c">WS02 · 10.0.1.6</text>
+  <text x="662" y="384" text-anchor="middle" font-size="12" fill="#2d3748">Windows Server 2022</text>
+  <text x="662" y="404" text-anchor="middle" font-size="12" fill="#2d3748">Domain-joined</text>
+  <line x1="437" y1="333" x2="437" y2="307" stroke="#2f855a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="662" y1="333" x2="662" y2="307" stroke="#2f855a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="325" text-anchor="middle" font-size="11" fill="#276749">DNS + domain join</text>
+  <text x="550" y="458" text-anchor="middle" font-size="12" fill="#4a5568">All VMs: patch_mode = AutomaticByPlatform · static private IPs</text>
+
+  <!-- Key Vault -->
+  <rect x="295" y="500" width="240" height="150" rx="10" fill="#ffffff" stroke="#805ad5"/>
+  <text x="415" y="530" text-anchor="middle" font-size="15" font-weight="600" fill="#1a202c">Key Vault</text>
+  <text x="415" y="554" text-anchor="middle" font-size="13" fill="#2d3748">kv-aum-&lt;random&gt;</text>
+  <text x="415" y="576" text-anchor="middle" font-size="13" fill="#2d3748">RBAC authorization</text>
+  <text x="415" y="598" text-anchor="middle" font-size="13" fill="#2d3748">Secret: vm-admin-password</text>
+
+  <!-- Policy -->
+  <rect x="565" y="500" width="240" height="150" rx="10" fill="#ffffff" stroke="#d69e2e"/>
+  <text x="685" y="530" text-anchor="middle" font-size="15" font-weight="600" fill="#1a202c">Azure Policy</text>
+  <text x="685" y="554" text-anchor="middle" font-size="13" fill="#2d3748">aum-periodic-assessment</text>
+  <text x="685" y="576" text-anchor="middle" font-size="13" fill="#2d3748">Scope: rg-aumlab</text>
+  <text x="685" y="598" text-anchor="middle" font-size="13" fill="#2d3748">Auto-enrolls VMs in</text>
+  <text x="685" y="618" text-anchor="middle" font-size="13" fill="#2d3748">periodic assessment</text>
+
+  <!-- Update Manager -->
+  <rect x="870" y="90" width="300" height="580" rx="12" fill="#fff5f5" stroke="#e53e3e" stroke-width="2"/>
+  <text x="1020" y="120" text-anchor="middle" font-size="16" font-weight="600" fill="#c53030">Azure Update Manager</text>
+
+  <rect x="890" y="140" width="260" height="150" rx="8" fill="#ffffff" stroke="#fc8181"/>
+  <text x="1020" y="166" text-anchor="middle" font-size="14" font-weight="600" fill="#1a202c">Maintenance configuration</text>
+  <text x="1020" y="188" text-anchor="middle" font-size="13" fill="#2d3748">aum-weekly-patches</text>
+  <text x="1020" y="210" text-anchor="middle" font-size="13" fill="#2d3748">Saturdays 02:00 ET · 3 h window</text>
+  <text x="1020" y="232" text-anchor="middle" font-size="13" fill="#2d3748">Critical, Security, UpdateRollup</text>
+  <text x="1020" y="254" text-anchor="middle" font-size="13" fill="#2d3748">Reboot if required</text>
+
+  <rect x="890" y="310" width="260" height="110" rx="8" fill="#ffffff" stroke="#fc8181"/>
+  <text x="1020" y="336" text-anchor="middle" font-size="14" font-weight="600" fill="#1a202c">Maintenance assignments</text>
+  <text x="1020" y="360" text-anchor="middle" font-size="13" fill="#2d3748">DC01 · WS01 · WS02</text>
+  <text x="1020" y="382" text-anchor="middle" font-size="13" fill="#2d3748">VM-scoped</text>
+
+  <rect x="890" y="440" width="260" height="210" rx="8" fill="#ffffff" stroke="#fc8181"/>
+  <text x="1020" y="466" text-anchor="middle" font-size="14" font-weight="600" fill="#1a202c">Operations</text>
+  <text x="1020" y="492" text-anchor="middle" font-size="13" fill="#2d3748">On-demand Check for updates</text>
+  <text x="1020" y="514" text-anchor="middle" font-size="13" fill="#2d3748">Periodic assessment (every 24 h)</text>
+  <text x="1020" y="536" text-anchor="middle" font-size="13" fill="#2d3748">One-time update installs</text>
+  <text x="1020" y="558" text-anchor="middle" font-size="13" fill="#2d3748">Per-machine compliance view</text>
+  <text x="1020" y="580" text-anchor="middle" font-size="13" fill="#2d3748">Update history</text>
+
+  <line x1="1020" y1="290" x2="1020" y2="308" stroke="#4a5568" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="888" y1="365" x2="790" y2="300" stroke="#e53e3e" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="807" y1="575" x2="888" y2="545" stroke="#d69e2e" stroke-width="2" marker-end="url(#arr)"/>
+  <polyline points="130,552 130,688 1020,688 1020,654" fill="none" stroke="#dd6b20" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+  <text x="575" y="704" text-anchor="middle" font-size="11" fill="#c05621">Get-AzVMPatchAssessmentResult</text>
+</svg>

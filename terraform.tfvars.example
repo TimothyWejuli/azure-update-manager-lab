@@ -1,0 +1,5 @@
+location            = "eastus"
+resource_group_name = "rg-aumlab"
+admin_username      = "labadmin"
+allowed_rdp_ip      = "x.x.x.x/32" # your public IP
+domain_name         = "aumlab.local"
